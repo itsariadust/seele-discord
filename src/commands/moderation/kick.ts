@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { Command } from '@sapphire/framework';
 import { Permissions } from 'discord.js';
 import Kick from '../../models/kickSchema.js';
@@ -66,7 +65,6 @@ export class KickCommand extends Command {
 
         if (!kickedList) {
             const entry = {
-                _id: mongoose.Types.ObjectId(),
                 guildID: message.guild.id,
                 guildName: message.guild.name,
                 kickRecord: [{
@@ -86,7 +84,6 @@ export class KickCommand extends Command {
         }
 
         kickedList.kickRecord.push({
-            _id: mongoose.Types.ObjectId(),
             kickID: kickUID,
             kickedUserID: kickMember.id,
             kickedUserName: kickMember.user.username,

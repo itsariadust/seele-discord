@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { Command } from '@sapphire/framework';
 import Warn from '../../models/warnSchema.js';
 import ShortUniqueId from 'short-unique-id';
@@ -57,7 +56,6 @@ export class WarnCommand extends Command {
 
         if (!warnMemberEntry) {
             const entry = {
-                _id: mongoose.Types.ObjectId(),
                 guildID: message.guild.id,
                 guildName: message.guild.name,
                 warnedUserID: warnMember.id,

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const banSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     guildID: String,
     guildName: String,
     banRecord: [{

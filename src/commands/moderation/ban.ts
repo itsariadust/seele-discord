@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { Command } from '@sapphire/framework';
 import { Permissions } from 'discord.js';
 import Ban from '../../models/banSchema.js';
@@ -66,7 +65,6 @@ export class BanCommand extends Command {
 
         if (!bannedList) {
             const entry = {
-                _id: mongoose.Types.ObjectId(),
                 guildID: message.guild.id,
                 guildName: message.guild.name,
                 banRecord: [{
@@ -86,7 +84,6 @@ export class BanCommand extends Command {
         }
 
         bannedList.banRecord.push({
-            _id: mongoose.Types.ObjectId(),
             banID: banUID,
             bannedUserID: banMember.id,
             bannedUserName: banMember.user.username,
