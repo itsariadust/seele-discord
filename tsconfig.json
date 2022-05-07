@@ -1,0 +1,16 @@
+{
+	"extends": "@sapphire/ts-config",
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "dist",
+		"tsBuildInfoFile": "dist/.tsbuildinfo",
+		"strict": false,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "alwaysStrict": false,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"noImplicitReturns": false,
+	},
+	"include": ["src"]
+}
