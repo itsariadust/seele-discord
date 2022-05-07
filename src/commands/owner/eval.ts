@@ -47,7 +47,7 @@ export class UserCommand extends Command {
 		const msg = message;
 
 		let success = true;
-		let result = null;
+		let result: any = null;
 
 		try {
 			// eslint-disable-next-line no-eval

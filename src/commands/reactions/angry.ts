@@ -4,7 +4,7 @@ import { Command } from '@sapphire/framework';
 import fetch from 'node-fetch';
 
 export class AngryReactCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'angry',

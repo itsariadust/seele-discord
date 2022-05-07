@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { Command } from '@sapphire/framework';
 import Guild from '../../models/guildSchema.js';
 
@@ -23,7 +22,6 @@ export class DeleteModCommand extends Command {
 
         if (!guildSettings) {
             guildSettings = new Guild({
-                _id: mongoose.Types.ObjectId(),
                 guildName: message.guild.name,
                 guildID: message.guild.id,
                 modroles: settingValue.id,

@@ -1,10 +1,10 @@
-import { Command } from '@sapphire/framework';
-import { Permissions } from 'discord.js';
+import { Command, Args } from '@sapphire/framework';
+import { Message, Permissions } from 'discord.js';
 import Kick from '../../models/kickSchema.js';
 import ShortUniqueId from 'short-unique-id';
 
 export class KickCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'kick',
@@ -14,7 +14,7 @@ export class KickCommand extends Command {
         });
     }
 
-    async messageRun(message, args) {
+    async messageRun(message: Message, args: Args) {
         const kickMember = await args.pick('member').catch(() => null);
         const kickMessage = await args.rest('string').catch(() => 'None provided');
         const uid = new ShortUniqueId({ length: 5 });
@@ -23,11 +23,11 @@ export class KickCommand extends Command {
             return message.reply('You didn\'t kick anyone! Mention the user after typing the command before entering.');
         }
 
-        if (kickMember.id === message.client.user.id) {
+        if (kickMember.id === message.client.user!.id) {
             return message.reply('I can\'t kick myself!');
         }
 
-        if (!message.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+        if (!message.guild!.me!.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
             return message.reply('I have no permissions to do this command. Please give me the Kick Members permissions.');
         }
 
@@ -35,7 +35,7 @@ export class KickCommand extends Command {
             return message.reply('I can\'t kick this member. Perhaps his role is higher than mine.');
         }
 
-        let kickedList = await Kick.findOne({ guildID: message.guild.id });
+        let kickedList = await Kick.findOne({ guildID: message.guild!.id });
         const kickUID = uid();
         const kickEmbed = {
             color: 0x00FFFF,
@@ -65,8 +65,8 @@ export class KickCommand extends Command {
 
         if (!kickedList) {
             const entry = {
-                guildID: message.guild.id,
-                guildName: message.guild.name,
+                guildID: message.guild!.id,
+                guildName: message.guild!.name,
                 kickRecord: [{
                     kickID: kickUID,
                     kickedUserID: kickMember.id,
@@ -78,8 +78,8 @@ export class KickCommand extends Command {
                 }],
             };
             kickedList = new Kick(entry);
-            await kickedList.save().catch(err => console.log(err));
-            message.guild.members.kick(kickMember, kickMessage);
+            await kickedList.save().catch((err: any) => console.log(err));
+            message.guild!.members.kick(kickMember, kickMessage);
             return message.channel.send({ embeds: [kickEmbed] });
         }
 
@@ -92,8 +92,8 @@ export class KickCommand extends Command {
             kickAuthorUserID: message.author.id,
             kickDate: message.createdAt,
         });
-        await kickedList.save().catch(err => console.log(err));
-        message.guild.members.kick(kickMember, kickMessage);
+        await kickedList.save().catch((err: any) => console.log(err));
+        message.guild!.members.kick(kickMember, kickMessage);
         return message.channel.send({ embeds: [kickEmbed] });
     }
 }

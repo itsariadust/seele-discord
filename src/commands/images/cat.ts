@@ -1,8 +1,9 @@
 import { Command } from '@sapphire/framework';
 import axios from 'axios';
+import type { Message } from 'discord.js';
 
 export class CatCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'cat',
@@ -10,7 +11,7 @@ export class CatCommand extends Command {
         });
     }
 
-    async messageRun(message) {
+    async messageRun(message: Message) {
         axios.get('https://aws.random.cat/meow')
             .then(function(response) {
                 message.reply(response.data.file);

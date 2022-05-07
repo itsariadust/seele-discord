@@ -1,9 +1,10 @@
-import { Command } from '@sapphire/framework';
+import { Args, Command } from '@sapphire/framework';
 import Warn from '../../models/warnSchema.js';
 import ShortUniqueId from 'short-unique-id';
+import type { Message } from 'discord.js';
 
 export class WarnCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'warn',
@@ -13,7 +14,7 @@ export class WarnCommand extends Command {
         });
     }
 
-    async messageRun(message, args) {
+    async messageRun(message: Message, args: Args) {
         const warnMember = await args.pick('member').catch(() => null);
         const warnMessage = await args.rest('string').catch(() => 'None provided.');
         const uid = new ShortUniqueId({ length: 5 });
@@ -22,11 +23,11 @@ export class WarnCommand extends Command {
             return message.reply('You didn\'t warn anyone! Mention the user after typing the command before entering.');
         }
 
-        if (warnMember.id === message.client.user.id) {
+        if (warnMember.id === message.client.user!.id) {
             return message.reply('I can\'t warn myself!');
         }
 
-        let warnMemberEntry = await Warn.findOne({ guildID: message.guild.id, warnedUserID: warnMember.id });
+        let warnMemberEntry = await Warn.findOne({ guildID: message.guild!.id, warnedUserID: warnMember.id });
         const warnUID = uid();
         const warnEmbed = {
             color: 0x00FFFF,
@@ -56,8 +57,8 @@ export class WarnCommand extends Command {
 
         if (!warnMemberEntry) {
             const entry = {
-                guildID: message.guild.id,
-                guildName: message.guild.name,
+                guildID: message.guild!.id,
+                guildName: message.guild!.name,
                 warnedUserID: warnMember.id,
                 warnedUserName: warnMember.user.username,
                 warnings: [{
