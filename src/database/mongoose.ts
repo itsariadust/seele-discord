@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
+import { container } from '@sapphire/framework';
 
 export default {
     init: () => {
         mongoose.connect(`${process.env.DATABASE_URL}`);
 
         mongoose.connection.on('connected', () => {
-            console.log('The bot has connected to the database.');
+            container.logger.info('MongoDB connection successful.')
         });
         mongoose.connection.on('disconnected', () => {
-            console.log('The bot has been disconnected to the database.');
+            container.logger.info('The bot has been disconnected to the database.');
         });
         mongoose.connection.on('err', (err) => {
-            console.log('There was an error while connecting to the database:' + err);
+            container.logger.info('There was an error while connecting to the database:' + err);
         });
     },
 };
