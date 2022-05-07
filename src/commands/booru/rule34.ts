@@ -1,9 +1,10 @@
-import { Command } from '@sapphire/framework';
+import { Command, Args } from '@sapphire/framework';
+import type { Message } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
-import Booru from 'booru';
+import { search } from 'booru';
 
 export class Rule34Command extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'rule34',
@@ -12,9 +13,9 @@ export class Rule34Command extends Command {
         });
     }
 
-    async messageRun(message, args) {
+    async messageRun(message: Message, args: Args) {
         const tag = await args.rest('string').catch(() => '*');
-        const img = await Booru.search('r34', [`${tag}`], { random: true });
+        const img = await search('r34', [`${tag}`], { random: true });
         if (img.length === 0) return message.channel.send('This is not a valid search term!');
         img.forEach((i) => {
             const booruEmbed = new MessageEmbed()
