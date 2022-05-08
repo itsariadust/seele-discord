@@ -1,5 +1,5 @@
 import { Command } from '@sapphire/framework';
-import Guild from '../../models/guildSchema.js';
+import GuildSettings from '../../models/guildSchema.js';
 
 export class SetPrefixCommand extends Command {
     constructor(context, options) {
@@ -13,7 +13,7 @@ export class SetPrefixCommand extends Command {
     }
 
     async messageRun(message, args) {
-        let guildSettings = await Guild.findOne({ guildID: message.guild.id });
+        let guildSettings = await GuildSettings.findOne({ guildID: message.guild.id });
         const settingValue = await args.pick('string').catch(() => null);
 
         if (settingValue === null) {
@@ -21,14 +21,14 @@ export class SetPrefixCommand extends Command {
         }
 
         if (!guildSettings) {
-            guildSettings = new Guild({
+            guildSettings = new GuildSettings({
                 guildName: message.guild.name,
                 guildID: message.guild.id,
             });
             await guildSettings.save().catch(err => console.log(err));
         }
 
-        await Guild.findOneAndUpdate({ guildID: message.guild.id }, { prefix: settingValue });
+        await GuildSettings.findOneAndUpdate({ guildID: message.guild.id }, { prefix: settingValue });
         message.reply(`Your prefix has been changed to ${settingValue}`);
     }
 }
