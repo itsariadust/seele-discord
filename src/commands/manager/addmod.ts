@@ -15,7 +15,7 @@ export class AddModCommand extends Command {
 
     async messageRun(message: Message, args: Args) {
         const settingValue = await args.pick('role').catch(() => null);
-        let guildSettings = await GuildSettings.findOne({ guildID: message.guild.id });
+        let guildSettings = await GuildSettings.findOne({ guildID: message.guild!.id });
 
         if (settingValue === null) {
             return message.reply('You didn\'t specify a role to add as a moderator.');
@@ -23,8 +23,8 @@ export class AddModCommand extends Command {
 
         if (!guildSettings) {
             guildSettings = new GuildSettings({
-                guildName: message.guild.name,
-                guildID: message.guild.id,
+                guildName: message.guild!.name,
+                guildID: message.guild!.id,
                 modroles: settingValue.id,
             });
             await guildSettings.save().catch((err: any) => console.log(err));

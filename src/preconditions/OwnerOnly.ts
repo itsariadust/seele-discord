@@ -3,7 +3,7 @@ import type { Message } from 'discord.js';
 
 export class OwnerOnlyPrecondition extends Precondition {
     public run(message: Message) {
-        return message.author.id === message.guild.ownerId
+        return message.author.id === message.guild!.ownerId
             ? this.ok()
             : this.error({ message: 'Only the server owner can use this command!' });
     }

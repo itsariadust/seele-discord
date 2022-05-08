@@ -4,8 +4,8 @@ import type { Message } from 'discord.js';
 
 export class ModOnlyPrecondition extends Precondition {
     public async run(message: Message) {
-        const guildSettings = await Guild.findOne({ guildID: message.guild.id });
-        const memberRoleMap = message.member.roles.cache.mapValues(roles => roles.id);
+        const guildSettings = await Guild.findOne({ guildID: message.guild!.id });
+        const memberRoleMap = message.member!.roles.cache.mapValues(roles => roles.id);
         const memberRoleArray = Array.from(memberRoleMap.values());
         const modRoleArray = guildSettings.modroles;
 

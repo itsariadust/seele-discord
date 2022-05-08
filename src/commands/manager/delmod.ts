@@ -15,7 +15,7 @@ export class DeleteModCommand extends Command {
 
     async messageRun(message: Message, args: Args) {
         const settingValue = await args.pick('role').catch(() => null);
-        let guildSettings = await Guild.findOne({ guildID: message.guild.id });
+        let guildSettings = await Guild.findOne({ guildID: message.guild!.id });
 
         if (settingValue === null) {
             return message.reply('You didn\'t specify a role to remove as a moderator.');
@@ -23,8 +23,8 @@ export class DeleteModCommand extends Command {
 
         if (!guildSettings) {
             guildSettings = new Guild({
-                guildName: message.guild.name,
-                guildID: message.guild.id,
+                guildName: message.guild!.name,
+                guildID: message.guild!.id,
             });
             await guildSettings.save().catch((err: any) => console.log(err));
             return message.reply(`You don't have any settings in the database, so I made one instead. You can onl add settings for now. You can only remove settings that have been inserted.`);
