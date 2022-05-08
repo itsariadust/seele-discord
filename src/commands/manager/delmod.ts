@@ -1,37 +1,41 @@
-import { Command } from '@sapphire/framework';
+import { Args, Command } from '@sapphire/framework';
+import type { Message } from 'discord.js';
 import Guild from '../../models/guildSchema.js';
 
 export class DeleteModCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'delmod',
             description: 'Delete moderator roles.',
             quotes: [],
-            preconditions: ['ownerOnly'],
+            preconditions: ['OwnerOnly'],
         });
     }
 
-    async messageRun(message, args) {
-        let guildSettings = await Guild.findOne({ guildID: message.guild.id });
+    async messageRun(message: Message, args: Args) {
         const settingValue = await args.pick('role').catch(() => null);
+        let guildSettings = await Guild.findOne({ guildID: message.guild.id });
 
         if (settingValue === null) {
-            return message.reply('You didn\'t specify a role to add as a moderator.');
+            return message.reply('You didn\'t specify a role to remove as a moderator.');
         }
 
         if (!guildSettings) {
             guildSettings = new Guild({
                 guildName: message.guild.name,
                 guildID: message.guild.id,
-                modroles: settingValue.id,
             });
-            await guildSettings.save().catch(err => console.log(err));
-            return message.reply(`I made an entry in the database for your server settings since you're a first time user. I added the role ${settingValue} to the database.`);
+            await guildSettings.save().catch((err: any) => console.log(err));
+            return message.reply(`You don't have any settings in the database, so I made one instead. You can onl add settings for now. You can only remove settings that have been inserted.`);
         }
 
-        guildSettings.modroles.push(settingValue.id);
-        await guildSettings.save().catch(err => console.log(err));
-        return message.reply(`I added the role ${settingValue} to the database.`);
+        if (!guildSettings.modroles.includes(settingValue)) {
+            return message.reply('This role is not present.')
+        }
+
+        guildSettings.modroles.pull(settingValue.id);
+        await guildSettings.save().catch((err: any) => console.log(err));
+        return message.reply(`I removed the role ${settingValue} to the database.`);
     }
 }
