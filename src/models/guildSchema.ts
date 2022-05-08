@@ -7,4 +7,4 @@ const guildSchema = new mongoose.Schema({
     modroles: [String],
 });
 
-export default mongoose.model('Guild', guildSchema, 'guildSettings');
+export default mongoose.model('GuildSettings', guildSchema, 'guildSettings');
