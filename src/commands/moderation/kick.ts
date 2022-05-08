@@ -10,7 +10,7 @@ export class KickCommand extends Command {
             name: 'kick',
             description: 'Kicks the member from the server.',
             quotes: [],
-            preconditions: ['OwnerOnly'],
+            preconditions: [['OwnerOnly', 'ModOnly']],
             requiredClientPermissions: ['KICK_MEMBERS'],
         });
     }

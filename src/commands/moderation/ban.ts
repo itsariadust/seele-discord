@@ -10,7 +10,7 @@ export class BanCommand extends Command {
             name: 'ban',
             description: 'Bans the member from the server.',
             quotes: [],
-            preconditions: ['OwnerOnly'],
+            preconditions: [['OwnerOnly', 'ModOnly']],
             requiredClientPermissions: ['BAN_MEMBERS'],
         });
     }
