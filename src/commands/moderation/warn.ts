@@ -1,5 +1,5 @@
 import { Args, Command } from '@sapphire/framework';
-import Warn from '../../models/warnSchema.js';
+import Warn from '../../models/warnSchema';
 import ShortUniqueId from 'short-unique-id';
 import type { Message } from 'discord.js';
 
