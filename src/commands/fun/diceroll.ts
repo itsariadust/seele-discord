@@ -7,6 +7,7 @@ export class DiceRollCommand extends Command {
             ...options,
             name: 'diceroll',
             description: 'A simple roll command. Default roll is a d6 dice but providing a number would correspond to a dx dice.',
+            aliases: ['roll'],
         });
     }
 
