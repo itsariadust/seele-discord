@@ -7,7 +7,6 @@ export class CatCommand extends Command {
         super(context, {
             ...options,
             name: 'cat',
-            description: 'Posts a cat image.'
         });
     }
 
