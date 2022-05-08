@@ -1,5 +1,5 @@
 import { Command, Args } from '@sapphire/framework';
-import { Message, Permissions } from 'discord.js';
+import type { Message } from 'discord.js';
 import Ban from '../../models/banSchema.js';
 import ShortUniqueId from 'short-unique-id';
 
@@ -11,6 +11,7 @@ export class BanCommand extends Command {
             description: 'Bans the member from the server.',
             quotes: [],
             preconditions: ['OwnerOnly'],
+            requiredClientPermissions: ['BAN_MEMBERS'],
         });
     }
 
@@ -25,10 +26,6 @@ export class BanCommand extends Command {
 
         if (banMember.id === message.client.user!.id) {
             return message.reply('I can\'t ban myself!');
-        }
-
-        if (!message.guild!.me!.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
-            return message.reply('I have no permissions to do this command. Please give me the Ban Members permissions.');
         }
 
         if (banMember.bannable === false) {

@@ -1,5 +1,5 @@
 import { Command, Args } from '@sapphire/framework';
-import { Message, Permissions } from 'discord.js';
+import type { Message } from 'discord.js';
 import Kick from '../../models/kickSchema.js';
 import ShortUniqueId from 'short-unique-id';
 
@@ -11,6 +11,7 @@ export class KickCommand extends Command {
             description: 'Kicks the member from the server.',
             quotes: [],
             preconditions: ['OwnerOnly'],
+            requiredClientPermissions: ['KICK_MEMBERS'],
         });
     }
 
@@ -25,10 +26,6 @@ export class KickCommand extends Command {
 
         if (kickMember.id === message.client.user!.id) {
             return message.reply('I can\'t kick myself!');
-        }
-
-        if (!message.guild!.me!.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
-            return message.reply('I have no permissions to do this command. Please give me the Kick Members permissions.');
         }
 
         if (kickMember.kickable === false) {
