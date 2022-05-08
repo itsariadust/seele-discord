@@ -70,7 +70,7 @@ export class WarnCommand extends Command {
                 }],
             };
             warnMemberEntry = new Warn(entry);
-            await warnMemberEntry.save().catch(err => console.log(err));
+            await warnMemberEntry.save().catch((err: any) => console.log(err));
             return message.channel.send({ embeds: [warnEmbed] });
         }
 
@@ -81,7 +81,7 @@ export class WarnCommand extends Command {
             warningAuthorUserID: message.author.id,
             warningDate: message.createdAt,
         });
-        await warnMemberEntry.save().catch(err => console.log(err));
+        await warnMemberEntry.save().catch((err: any) => console.log(err));
         return message.channel.send({ embeds: [warnEmbed] });
     }
 }

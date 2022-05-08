@@ -1,18 +1,19 @@
-import { Command } from '@sapphire/framework';
+import { Args, Command } from '@sapphire/framework';
+import type { Message } from 'discord.js';
 import GuildSettings from '../../models/guildSchema.js';
 
 export class SetPrefixCommand extends Command {
-    constructor(context, options) {
+    constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'setprefix',
             description: 'Set server-specific prefix for the bot.',
             quotes: [],
-            preconditions: ['ownerOnly'],
+            preconditions: ['OwnerOnly'],
         });
     }
 
-    async messageRun(message, args) {
+    async messageRun(message: Message, args: Args) {
         let guildSettings = await GuildSettings.findOne({ guildID: message.guild.id });
         const settingValue = await args.pick('string').catch(() => null);
 
@@ -25,7 +26,7 @@ export class SetPrefixCommand extends Command {
                 guildName: message.guild.name,
                 guildID: message.guild.id,
             });
-            await guildSettings.save().catch(err => console.log(err));
+            await guildSettings.save().catch((err: any) => console.log(err));
         }
 
         await GuildSettings.findOneAndUpdate({ guildID: message.guild.id }, { prefix: settingValue });
