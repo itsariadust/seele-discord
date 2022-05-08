@@ -8,6 +8,7 @@ export class ServerInfoCommand extends Command {
             ...options,
             name: 'serverinfo',
             description: 'Retrives server information.',
+            aliases: ['server'],
         });
     }
 

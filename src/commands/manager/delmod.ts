@@ -27,11 +27,11 @@ export class DeleteModCommand extends Command {
                 guildID: message.guild!.id,
             });
             await guildSettings.save().catch((err: any) => console.log(err));
-            return message.reply(`You don't have any settings in the database, so I made one instead. You can onl add settings for now. You can only remove settings that have been inserted.`);
+            return message.reply('You don\'t have any settings in the database, so I made one instead. You can onl add settings for now. You can only remove settings that have been inserted.');
         }
 
         if (!guildSettings.modroles.includes(settingValue)) {
-            return message.reply('This role is not present.')
+            return message.reply('This role is not present.');
         }
 
         guildSettings.modroles.pull(settingValue.id);

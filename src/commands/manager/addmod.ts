@@ -32,7 +32,7 @@ export class AddModCommand extends Command {
         }
 
         if (guildSettings.modroles.includes(settingValue)) {
-            return message.reply('This role is already present.')
+            return message.reply('This role is already present.');
         }
 
         guildSettings.modroles.push(settingValue.id);

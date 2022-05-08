@@ -6,7 +6,7 @@ export default {
         mongoose.connect(`${process.env.DATABASE_URL}`);
 
         mongoose.connection.on('connected', () => {
-            container.logger.info('MongoDB connection successful.')
+            container.logger.info('MongoDB connection successful.');
         });
         mongoose.connection.on('disconnected', () => {
             container.logger.info('The bot has been disconnected to the database.');
