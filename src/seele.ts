@@ -1,7 +1,7 @@
 import './lib/setup';
 import { LogLevel, SapphireClient } from '@sapphire/framework';
 import mongoose from './database/mongoose';
-import Guild from './models/guildSchema';
+import GuildSettings from './models/guildSchema';
 
 mongoose.init();
 
@@ -25,7 +25,7 @@ const client = new SapphireClient({
 
 const main = async () => {
     client.fetchPrefix = async (message) => {
-        const guildProfile = await Guild.findOne({ guildID: message.guild.id });
+        const guildProfile = await GuildSettings.findOne({ guildID: message.guild.id });
         return guildProfile?.prefix ?? 's!';
     };
 
