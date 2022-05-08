@@ -21,7 +21,7 @@ export class ServerInfoCommand extends Command {
         const guildChannelCount = await guildData!.channels.cache;
         const guildChannelCountMap = guildChannelCount.mapValues(channels => channels.type);
         const guildChannelCountArray = Array.from(guildChannelCountMap.values());
-        const counts = {};
+        const counts: any = {};
         guildChannelCountArray.forEach(function(x) {
             counts[x] = (counts[x] || 0) + 1;
         });
