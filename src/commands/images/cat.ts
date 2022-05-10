@@ -1,22 +1,19 @@
 import { Command } from '@sapphire/framework';
-import axios from 'axios';
 import type { Message } from 'discord.js';
+import WeebyAPI from 'weeby-js';
 
 export class CatCommand extends Command {
-    constructor(context: Command.Context, options: Command.Options) {
+    public constructor(context: Command.Context, options: Command.Options) {
         super(context, {
             ...options,
             name: 'cat',
+            description: 'Sends a cat picture.',
         });
     }
 
-    async messageRun(message: Message) {
-        axios.get('https://aws.random.cat/meow')
-            .then(function(response) {
-                message.reply(response.data.file);
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+    public async messageRun(message: Message) {
+        const weeby = new WeebyAPI(`${process.env.WEEBY_TOKEN}`);
+        const cat = await weeby.json.animalImage('cat');
+        return message.reply(cat);
     }
 }
