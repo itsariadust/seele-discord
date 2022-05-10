@@ -11,7 +11,6 @@ export class UserEvent extends Listener {
     }
 
     public async run(guild: Guild) {
-        console.log('Event fired.');
         let guildSettings = await GuildSettings.findOne({ guildID: guild.id });
         if (!guildSettings) {
             guildSettings = new GuildSettings({
