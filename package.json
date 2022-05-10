@@ -43,11 +43,12 @@
     "typescript": "^4.5.5"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "lint": "eslint . --ext .ts",
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "start": "node dist/seele.js",
-    "dev": "run-s lint build start",
-    "watch:start": "tsc-watch --onSuccess \"node ./dist/seele.js\"",
-    "lint": "eslint . --ext .ts"
+    "dev": "run-s lint clean build start",
+    "watch": "tsc -w",
+    "watch:start": "tsc-watch --onSuccess \"node ./dist/seele.js\""
   }
 }
