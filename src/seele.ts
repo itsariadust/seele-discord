@@ -21,6 +21,8 @@ const client = new SapphireClient({
         'DIRECT_MESSAGES',
         'DIRECT_MESSAGE_REACTIONS',
     ],
+    disableMentionPrefix: true,
+    typing: true,
 });
 
 const main = async () => {
