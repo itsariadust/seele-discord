@@ -8,6 +8,7 @@ export class ThreesomeCommand extends Command {
             ...options,
             name: 'threesome',
             description: 'Sends a threesome GIF.',
+            nsfw: true,
         });
     }
 

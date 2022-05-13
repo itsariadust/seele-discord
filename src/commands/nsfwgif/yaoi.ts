@@ -8,6 +8,7 @@ export class YaoiCommand extends Command {
             ...options,
             name: 'yaoi',
             description: 'Sends a yaoi GIF.',
+            nsfw: true,
         });
     }
 

@@ -8,6 +8,7 @@ export class MasturbateCommand extends Command {
             ...options,
             name: 'masturbate',
             description: 'Sends a masturbate GIF.',
+            nsfw: true,
         });
     }
 

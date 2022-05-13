@@ -8,6 +8,7 @@ export class PussyLickCommand extends Command {
             ...options,
             name: 'pussylick',
             description: 'Sends a pussy lick GIF.',
+            nsfw: true,
         });
     }
 

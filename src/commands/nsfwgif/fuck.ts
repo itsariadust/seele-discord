@@ -8,6 +8,7 @@ export class FuckCommand extends Command {
             ...options,
             name: 'fuck',
             description: 'Sends a fuck GIF.',
+            nsfw: true,
         });
     }
 

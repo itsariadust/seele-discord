@@ -8,6 +8,7 @@ export class BlowjobCommand extends Command {
             ...options,
             name: 'blowjob',
             description: 'Sends a blowjob GIF.',
+            nsfw: true,
         });
     }
 

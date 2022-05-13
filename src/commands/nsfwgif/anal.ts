@@ -8,6 +8,7 @@ export class AnalCommand extends Command {
             ...options,
             name: 'anal',
             description: 'Sends a anal GIF.',
+            nsfw: true,
         });
     }
 

@@ -8,6 +8,7 @@ export class YuriCommand extends Command {
             ...options,
             name: 'yuri',
             description: 'Sends a yuri GIF.',
+            nsfw: true,
         });
     }
 

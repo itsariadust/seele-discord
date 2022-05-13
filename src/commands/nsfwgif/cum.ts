@@ -8,6 +8,7 @@ export class CumCommand extends Command {
             ...options,
             name: 'cum',
             description: 'Sends a cum GIF.',
+            nsfw: true,
         });
     }
 
