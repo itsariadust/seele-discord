@@ -56,22 +56,13 @@ export class WarnCommand extends Command {
         };
 
         if (!warnMemberEntry) {
-            const entry = {
+            warnMemberEntry = new Warn({
                 guildID: message.guild!.id,
                 guildName: message.guild!.name,
                 warnedUserID: warnMember.id,
                 warnedUserName: warnMember.user.username,
-                warnings: [{
-                    warningID: warnUID,
-                    warningMessage: warnMessage,
-                    warningAuthorUserName: message.author.username,
-                    warningAuthorUserID: message.author.id,
-                    warningDate: message.createdAt,
-                }],
-            };
-            warnMemberEntry = new Warn(entry);
-            await warnMemberEntry.save().catch((err: any) => console.log(err));
-            return message.channel.send({ embeds: [warnEmbed] });
+                warnings: [],
+            });
         }
 
         warnMemberEntry.warnings.push({
@@ -81,7 +72,12 @@ export class WarnCommand extends Command {
             warningAuthorUserID: message.author.id,
             warningDate: message.createdAt,
         });
-        await warnMemberEntry.save().catch((err: any) => console.log(err));
-        return message.channel.send({ embeds: [warnEmbed] });
+        try {
+            await warnMemberEntry.save();
+            message.channel.send({ embeds: [warnEmbed] });
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 }
