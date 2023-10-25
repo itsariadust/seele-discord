@@ -16,7 +16,7 @@ export class KickCommand extends Command {
         const kickMember = await args.pick('member').catch(() => null);
         const kickMessage = await args.rest('string').catch(() => 'None provided');
 
-        if (kickMember === null) {
+        if (!kickMember) {
             return message.reply('You didn\'t kick anyone! Mention the user after typing the command before entering.');
         }
 

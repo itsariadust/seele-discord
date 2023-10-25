@@ -16,7 +16,7 @@ export class BanCommand extends Command {
         const banMember = await args.pick('member').catch(() => null);
         const banMessage = await args.rest('string').catch(() => 'None provided');
 
-        if (banMember === null) {
+        if (!banMember) {
             return message.reply('You didn\'t ban anyone! Mention the user after typing the command before entering.');
         }
 

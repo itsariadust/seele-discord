@@ -28,7 +28,7 @@ const client = new SapphireClient({
 const main = async () => {
     client.fetchPrefix = async (message) => {
         const guildProfile = await GuildSettings.findOne({ guildID: message.guild!.id });
-        return guildProfile?.prefix ?? 's!';
+        return guildProfile?.prefix ?? '>';
     };
 
     try {

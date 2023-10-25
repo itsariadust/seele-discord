@@ -1,5 +1,5 @@
 import { Command } from '@sapphire/framework';
-import type { Message } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import WeebyAPI from 'weeby-js';
 
 export class BeerCommand extends Command {
@@ -14,6 +14,12 @@ export class BeerCommand extends Command {
     public async messageRun(message: Message) {
         const weeby = new WeebyAPI(`${process.env.WEEBY_TOKEN}`);
         const gif = await weeby.gif.fetch('beer');
-        return message.reply(gif);
+        const embed = new MessageEmbed()
+            .setAuthor({
+                name: `${message.author.username} is chugging on some good beer!`,
+                iconURL: `${message.author.avatarURL()}`,
+            })
+            .setImage(gif);
+        return message.channel.send({ embeds: [embed] });
     }
 }

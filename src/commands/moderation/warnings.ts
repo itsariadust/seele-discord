@@ -23,6 +23,10 @@ export class WarningsCommand extends Command {
             return message.reply('You didn\'t mention anyone! Mention the user that you want to view.');
         }
 
+        if (warnMemberEntry.warnings === null) {
+            return message.reply('There are no warnings for this user.');
+        }
+
         const response = await sendLoadingMessage(message);
 
         const paginatedMessage = new PaginatedMessage({
